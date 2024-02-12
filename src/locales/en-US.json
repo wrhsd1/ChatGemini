@@ -6,15 +6,19 @@
             "export_time": "Export time",
             "role_user": "User",
             "role_model": "AI",
-            "filename_prefix": "Conversation export",
+            "filename_prefix": "SessionExport",
             "export_failed": "Failed to export the conversation transcript"
         },
         "handleDeleteSession": {
+            "not_available": "AI is currently busy, please try deleting later",
             "confirm_message": "Are you sure you want to delete this conversation history?",
             "confirm_title": "Confirm action",
             "confirm_button": "OK",
             "cancel_button": "Cancel",
             "on_confirmed": "Conversation history deleted"
+        },
+        "handleRenameSession": {
+            "not_available": "AI is currently busy, please try renaming later"
         },
         "handlePurgeSessions": {
             "confirm_message": "Are you sure you want to clear all conversation history?",

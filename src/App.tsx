@@ -96,29 +96,37 @@ const App = () => {
     };
 
     const handleRenameSession = (id: string, newTitle: string) => {
-        const _sessions = {
-            ...sessions,
-            [id]: [
-                { ...sessions[id][0], title: newTitle },
-                ...sessions[id].slice(1),
-            ],
-        };
-        dispatch(updateSessions(_sessions));
+        if (!ai.busy) {
+            const _sessions = {
+                ...sessions,
+                [id]: [
+                    { ...sessions[id][0], title: newTitle },
+                    ...sessions[id].slice(1),
+                ],
+            };
+            dispatch(updateSessions(_sessions));
+        } else {
+            sendUserAlert(t("App.handleRenameSession.not_available"), true);
+        }
     };
 
     const handleDeleteSession = (id: string) => {
-        sendUserConfirm(t("App.handleDeleteSession.confirm_message"), {
-            title: t("App.handleDeleteSession.confirm_title"),
-            confirmText: t("App.handleDeleteSession.confirm_button"),
-            cancelText: t("App.handleDeleteSession.cancel_button"),
-            onConfirmed: () => {
-                navigate(routes.index.prefix);
-                const _sessions = { ...sessions };
-                delete _sessions[id];
-                dispatch(updateSessions(_sessions));
-                sendUserAlert(t("App.handleDeleteSession.on_confirmed"));
-            },
-        });
+        if (!ai.busy) {
+            sendUserConfirm(t("App.handleDeleteSession.confirm_message"), {
+                title: t("App.handleDeleteSession.confirm_title"),
+                confirmText: t("App.handleDeleteSession.confirm_button"),
+                cancelText: t("App.handleDeleteSession.cancel_button"),
+                onConfirmed: () => {
+                    navigate(routes.index.prefix);
+                    const _sessions = { ...sessions };
+                    delete _sessions[id];
+                    dispatch(updateSessions(_sessions));
+                    sendUserAlert(t("App.handleDeleteSession.on_confirmed"));
+                },
+            });
+        } else {
+            sendUserAlert(t("App.handleDeleteSession.not_available"), true);
+        }
     };
 
     const handlePurgeSessions = () => {
